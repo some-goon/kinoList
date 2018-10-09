@@ -8,7 +8,7 @@ public class App
     {
         ApiHandler handler = new ApiHandler();
         try {
-            handler.login("","");
+            handler.login(args[0],args[1]);
             handler.getMovies();
         } catch (FilmwebException e) {
             e.printStackTrace();
