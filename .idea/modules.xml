@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://D:/Pobrane/varabi-filmweb-api-12942c8cf766/FilmwebApi.iml" filepath="D:/Pobrane/varabi-filmweb-api-12942c8cf766/FilmwebApi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kinoList.iml" filepath="$PROJECT_DIR$/kinoList.iml" />
+    </modules>
+  </component>
+</project>
