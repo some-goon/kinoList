@@ -8,7 +8,7 @@ import java.util.*;
 
 public class ApiHandler {
     private static FilmwebApi api = new FilmwebApi();
-    private List<PersonalFilm> movies=new ArrayList<>();
+    private List<PersonalFilm> films=new ArrayList<>();
     private User user;
 
     void login(String login, String password) throws FilmwebException {
@@ -19,7 +19,6 @@ public class ApiHandler {
     void getMovies() throws FilmwebException {
         System.out.println("Pobieranie ocen...");
         List<Vote> votes = api.getUserVotes(user.getId(), 0, 20);
-        List<PersonalFilm> films=new ArrayList<>();
         System.out.println("Filtrowanie ocen...");
         for (Vote vote : votes) {
             if(vote.getType()==ItemType.FILM && (vote.getRate()>8 || vote.isFavourite())){
@@ -28,6 +27,8 @@ public class ApiHandler {
             }
         }
     }
-
+    List<PersonalFilm> getFilms(){
+        return films;
+    }
 
 }
