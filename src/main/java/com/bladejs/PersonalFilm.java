@@ -16,7 +16,7 @@ public class PersonalFilm implements Comparable<PersonalFilm>{
       return film;
     }
 
-    Vote getVote(){
+    private Vote getVote(){
         return vote;
     }
 
