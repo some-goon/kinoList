@@ -4,24 +4,24 @@ import info.talacha.filmweb.models.Film;
 import info.talacha.filmweb.models.Vote;
 
 public class PersonalFilm implements Comparable<PersonalFilm>{
-    private Film f;
-    private Vote v;
+    private Film film;
+    private Vote vote;
 
-    PersonalFilm(Vote v, Film f){
-        this.f=f;
-        this.v=v;
+    PersonalFilm(Vote vote, Film film){
+        this.film=film;
+        this.vote=vote;
     }
 
-    Film getF(){
-      return f;
+    Film getFilm(){
+      return film;
     }
 
-    Vote getV(){
-        return v;
+    Vote getVote(){
+        return vote;
     }
 
     public int compareTo(PersonalFilm pfilm){
-        return -Integer.compare(v.getRate(),pfilm.getV().getRate());
+        return -Integer.compare(vote.getRate(),pfilm.getVote().getRate());
     }
 
 }

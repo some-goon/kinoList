@@ -20,9 +20,12 @@ public class ApiHandler {
         System.out.println("Pobieranie ocen...");
         List<Vote> votes = api.getUserVotes(user.getId(), 0, 20);
         System.out.println("Filtrowanie ocen...");
+        int i=0;
         for (Vote vote : votes) {
-            if(vote.getType()==ItemType.FILM && (vote.getRate()>8 || vote.isFavourite())){
+            //if(vote.getType()==ItemType.FILM && (vote.getRate()>8 || vote.isFavourite())){
+            if(vote.getType()==ItemType.FILM && i<4){
                 films.add(new PersonalFilm(vote,api.getFilmData(vote.getItemId())));
+                i++;
                 //System.out.println(" "+api.getFilmData(vote.getItemId()).getTitle() + " // " + api.getFilmData(vote.getItemId()).getPolishTitle() + " - " + vote.getRate());
             }
         }
