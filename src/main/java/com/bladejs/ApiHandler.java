@@ -7,9 +7,14 @@ import info.talacha.filmweb.models.*;
 import java.util.*;
 
 public class ApiHandler {
-    private static FilmwebApi api = new FilmwebApi();
-    private List<PersonalFilm> films=new ArrayList<>();
+    private static FilmwebApi api;
+    private List<PersonalFilm> films;
     private User user;
+
+    ApiHandler(){
+        api = new FilmwebApi();
+        films = new ArrayList<>();
+    }
 
     void login(String login, String password) throws FilmwebException {
         System.out.println("Logowanie...");
@@ -32,6 +37,20 @@ public class ApiHandler {
     }
     List<PersonalFilm> getFilms(){
         return films;
+    }
+
+    static String getFilmTitle(Film film) throws NoTitleException{
+        if(film.getTitle()!=null)
+            return film.getTitle();
+        else
+            if(film.getPolishTitle()!=null)
+                return film.getPolishTitle();
+        else
+            throw new NoTitleException(film);
+    }
+
+    static int getUserRating(Vote vote){
+        return vote.getRate();
     }
 
 }

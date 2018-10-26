@@ -15,7 +15,11 @@ class TournamentController {
         while(this.films.size()>1){
             startTournament();
         }
-        System.out.println(this.films.get(0).getFilm().getTitle());
+        try {
+            System.out.println(this.films.get(0).getTitle());
+        }catch(NoTitleException e){
+            System.err.println("A problem occurred while getting a film title");
+        }
     }
 
     private void startTournament(){
@@ -24,23 +28,17 @@ class TournamentController {
             if(i+1>=this.films.size())
                 films.add(this.films.get(i));
             else
-                films.add(askForChoice(this.films.get(i), this.films.get(i+1)));
+                try {
+                    films.add(askForChoice(this.films.get(i), this.films.get(i + 1)));
+                }catch(NoTitleException e){
+                    e.printStackTrace();
+                }
         }
         this.films=films;
     }
 
-    private PersonalFilm askForChoice(PersonalFilm a, PersonalFilm b){
-        String titleA, titleB;
-        String temp;
-        if((temp=a.getFilm().getTitle())!=null)
-            titleA=temp;
-        else
-            titleA=a.getFilm().getPolishTitle();
-        if((temp=b.getFilm().getTitle())!=null)
-            titleB=temp;
-        else
-            titleB=b.getFilm().getPolishTitle();
-        System.out.println(titleA+" vs "+titleB+" (type 1 or 2).");
+    private PersonalFilm askForChoice(PersonalFilm a, PersonalFilm b) throws NoTitleException{
+        System.out.println(a.getTitle()+" vs "+b.getTitle()+" (type 1 or 2).");
         return getChoiceFromUser(a,b);
     }
 

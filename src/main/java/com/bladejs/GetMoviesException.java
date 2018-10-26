@@ -1,7 +1,7 @@
 package com.bladejs;
 
 public class GetMoviesException extends Exception {
-    public GetMoviesException(String message){
-        super(message);
+    public GetMoviesException(){
+        super("Downloading user's scores failed.");
     }
 }
