@@ -1,4 +1,4 @@
-package com.bladejs;
+package com.bladejs.kinoList;
 
 public class GetMoviesException extends Exception {
     public GetMoviesException(){

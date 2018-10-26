@@ -1,4 +1,4 @@
-package com.bladejs;
+package com.bladejs.kinoList;
 
 import static org.junit.Assert.assertTrue;
 

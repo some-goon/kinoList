@@ -1,4 +1,4 @@
-package com.bladejs;
+package com.bladejs.kinoList;
 
 import info.talacha.filmweb.models.Film;
 import info.talacha.filmweb.models.Vote;
