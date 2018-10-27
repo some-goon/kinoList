@@ -6,7 +6,7 @@ import info.talacha.filmweb.models.*;
 
 import java.util.*;
 
-public class ApiHandler {
+class ApiHandler {
     private static FilmwebApi api;
     private List<PersonalFilm> films;
     private User user;
@@ -21,7 +21,7 @@ public class ApiHandler {
         user = api.login(login,password);
     }
 
-    void getMovies() throws FilmwebException {
+    void downloadFilmList() throws FilmwebException {
         System.out.println("Pobieranie ocen...");
         List<Vote> votes = api.getUserVotes(user.getId(), 0, 20);
         System.out.println("Filtrowanie ocen...");
@@ -35,11 +35,12 @@ public class ApiHandler {
             }
         }
     }
+
     List<PersonalFilm> getFilms(){
         return films;
     }
 
-    static String getFilmTitle(Film film) throws NoTitleException{
+    static String getFilmTitle(Film film) throws NoTitleException {
         if(film.getTitle()!=null)
             return film.getTitle();
         else
@@ -47,7 +48,7 @@ public class ApiHandler {
                 return film.getPolishTitle();
         else
             throw new NoTitleException(film);
-    }
+}
 
     static int getUserRating(Vote vote){
         return vote.getRate();

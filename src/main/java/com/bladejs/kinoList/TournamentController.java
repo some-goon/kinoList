@@ -1,19 +1,39 @@
 package com.bladejs.kinoList;
 
+import info.talacha.filmweb.connection.FilmwebException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-class TournamentController {
+public class TournamentController {
+    private ApiHandler handler;
     private List<PersonalFilm> films;
 
     private Scanner input;
 
-    TournamentController(List<PersonalFilm> films){
+    public TournamentController(){
+        handler=new ApiHandler();
         input = new Scanner(System.in);
-        this.films=films;
+    }
+
+    public void login(String login, String password) throws FilmwebException{
+            handler.login(login, password);
+    }
+
+    public void prepare(){
+        try {
+            handler.downloadFilmList();
+            this.films=handler.getFilms();
+        }catch(FilmwebException e){
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
+
+    public void startTournament(){
         while(this.films.size()>1){
-            startTournament();
+            duel();
         }
         try {
             System.out.println(this.films.get(0).getTitle());
@@ -22,7 +42,7 @@ class TournamentController {
         }
     }
 
-    private void startTournament(){
+    private void duel(){
         List<PersonalFilm> films=new ArrayList<>();
         for(int i=0; i<this.films.size(); i+=2){
             if(i+1>=this.films.size())

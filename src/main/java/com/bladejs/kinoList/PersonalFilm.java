@@ -3,7 +3,7 @@ package com.bladejs.kinoList;
 import info.talacha.filmweb.models.Film;
 import info.talacha.filmweb.models.Vote;
 
-public class PersonalFilm implements Comparable<PersonalFilm>{
+class PersonalFilm implements Comparable<PersonalFilm>{
     private Film film;
     private Vote vote;
 
@@ -25,7 +25,7 @@ public class PersonalFilm implements Comparable<PersonalFilm>{
         return vote;
     }
 
-    String getTitle() throws NoTitleException{
+    String getTitle() throws NoTitleException {
         if(title==null)
             return title=ApiHandler.getFilmTitle(film);
         else
@@ -41,6 +41,7 @@ public class PersonalFilm implements Comparable<PersonalFilm>{
             return userRating;
     }
 
+    @Override
     public int compareTo(PersonalFilm pfilm){
         return -Integer.compare(vote.getRate(),pfilm.getVote().getRate());
     }
