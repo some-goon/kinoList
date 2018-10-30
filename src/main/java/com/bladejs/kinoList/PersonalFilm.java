@@ -6,7 +6,8 @@ import info.talacha.filmweb.models.Vote;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.IOException;
-import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 class PersonalFilm implements Comparable<PersonalFilm>{
     private Film film;
@@ -15,17 +16,18 @@ class PersonalFilm implements Comparable<PersonalFilm>{
     private String title;
     private int userRating;
     private int year;
-    private URL coverURL;
     private Image cover;
+    private List<PersonalFilm> betterThan;
+
     private boolean gotUserRating;
     private boolean gotYear;
-    private boolean gotCoverURL;
     private boolean gotCover;
 
     PersonalFilm(Vote vote, Film film){
         this.film=film;
         this.vote=vote;
         gotUserRating=false;
+        betterThan=new ArrayList<>();
     }
 
     private Film getFilm(){
@@ -61,20 +63,11 @@ class PersonalFilm implements Comparable<PersonalFilm>{
             return year;
     }
 
-    URL getCoverURL(){
-        if(!gotCoverURL) {
-            gotCoverURL = true;
-            return coverURL = ApiHandler.getFilmCover(film);
-        }
-        else
-            return coverURL;
-    }
-
     Image getCover(){
         if(!gotCover) {
             try {
                 gotCover = true;
-                return cover = ImageIO.read(getCoverURL());
+                return cover = ImageIO.read(ApiHandler.getFilmCover(this.film));
             }catch(IOException e){
                 gotCover=false;
                 e.printStackTrace();
@@ -84,6 +77,18 @@ class PersonalFilm implements Comparable<PersonalFilm>{
             return cover;
     }
 
+    void winOver(PersonalFilm film){
+        betterThan.add(film);
+        betterThan.addAll(film.getBetterThan());
+    }
+
+    boolean isBetterThan(PersonalFilm film){
+        return betterThan.contains(film);
+    }
+
+    private List<PersonalFilm> getBetterThan(){
+        return betterThan;
+    }
 
     @Override
     public int compareTo(PersonalFilm pfilm){

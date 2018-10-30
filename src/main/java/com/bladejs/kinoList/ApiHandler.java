@@ -29,7 +29,7 @@ class ApiHandler {
         int i=0;
         for (Vote vote : votes) {
             //if(vote.getType()==ItemType.FILM && (vote.getRate()>8 || vote.isFavourite())){
-            if(vote.getType()==ItemType.FILM && i<4){
+            if(vote.getType()==ItemType.FILM && i<8){
                 films.add(new PersonalFilm(vote,api.getFilmData(vote.getItemId())));
                 i++;
                 //System.out.println(" "+api.getFilmData(vote.getItemId()).getTitle() + " // " + api.getFilmData(vote.getItemId()).getPolishTitle() + " - " + vote.getRate());

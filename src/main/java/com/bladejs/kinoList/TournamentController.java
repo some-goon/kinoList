@@ -45,6 +45,10 @@ public class TournamentController {
         if(size>0){
             films.addAll(TournamentLists.get(size - 1));
             TournamentLists.remove(size - 1);
+            if(size>1){
+                films.addAll(TournamentLists.get(size - 2));
+                TournamentLists.remove(size-2);
+            }
             startTournament();
         }else{
             for (PersonalFilm film: finalFilms) {
@@ -79,15 +83,24 @@ public class TournamentController {
     }
 
     private PersonalFilm askForChoice(PersonalFilm a, PersonalFilm b) throws NoTitleException{
-        System.out.println(a.getTitle()+" vs "+b.getTitle()+" (type 1 or 2).");
-        return getChoiceFromUser(a,b);
+        if(a.isBetterThan(b))
+            return a;
+        else
+            if(b.isBetterThan(a))
+                return b;
+            else {
+                System.out.println(a.getTitle() + " vs " + b.getTitle() + " (type 1 or 2).");
+                return getChoiceFromUser(a, b);
+            }
     }
 
     private PersonalFilm getChoiceFromUser(PersonalFilm a, PersonalFilm b){
         switch(input.nextInt()){
             case 1:
+                a.winOver(b);
                 return a;
             case 2:
+                b.winOver(a);
                 break;
             default:
                 System.out.println("Błedne dane, spróuj jeszcze raz.");
