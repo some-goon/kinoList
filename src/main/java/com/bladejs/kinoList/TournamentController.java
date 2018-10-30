@@ -45,6 +45,7 @@ public class TournamentController {
         if(size>0){
             films.addAll(TournamentLists.get(size - 1));
             TournamentLists.remove(size - 1);
+            startTournament();
         }else{
             for (PersonalFilm film: finalFilms) {
                 try {
