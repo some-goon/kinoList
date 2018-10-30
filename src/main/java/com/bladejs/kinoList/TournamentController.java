@@ -9,12 +9,16 @@ import java.util.Scanner;
 public class TournamentController {
     private ApiHandler handler;
     private List<PersonalFilm> films;
+    private List<PersonalFilm> finalFilms;
+    private List<List<PersonalFilm>> TournamentLists;
 
     private Scanner input;
 
     public TournamentController(){
         handler=new ApiHandler();
         input = new Scanner(System.in);
+        finalFilms=new ArrayList<>();
+        TournamentLists=new ArrayList<>();
     }
 
     public void login(String login, String password) throws FilmwebException{
@@ -32,29 +36,45 @@ public class TournamentController {
     }
 
     public void startTournament(){
-        while(this.films.size()>1){
+        while(films.size()>1){
             duel();
         }
-        try {
-            System.out.println(this.films.get(0).getTitle());
-        }catch(NoTitleException e){
-            System.err.println("A problem occurred while getting a film title");
+        finalFilms.addAll(films);
+        films.clear();
+        int size=TournamentLists.size();
+        if(size>0){
+            films.addAll(TournamentLists.get(size - 1));
+            TournamentLists.remove(size - 1);
+        }else{
+            for (PersonalFilm film: finalFilms) {
+                try {
+                    System.out.println(film.getTitle());
+                }catch(NoTitleException e){
+                    System.err.println("A problem occurred while getting a film title");
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
     private void duel(){
+        PersonalFilm temp;
         List<PersonalFilm> films=new ArrayList<>();
         for(int i=0; i<this.films.size(); i+=2){
             if(i+1>=this.films.size())
                 films.add(this.films.get(i));
             else
                 try {
-                    films.add(askForChoice(this.films.get(i), this.films.get(i + 1)));
+                    temp=askForChoice(this.films.get(i), this.films.get(i + 1));
+                    films.add(temp);
                 }catch(NoTitleException e){
                     e.printStackTrace();
                 }
         }
+        this.films.removeAll(films);
+        List<PersonalFilm> old = new ArrayList<>(this.films);
         this.films=films;
+        TournamentLists.add(old);
     }
 
     private PersonalFilm askForChoice(PersonalFilm a, PersonalFilm b) throws NoTitleException{

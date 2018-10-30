@@ -4,6 +4,7 @@ import info.talacha.filmweb.api.FilmwebApi;
 import info.talacha.filmweb.connection.FilmwebException;
 import info.talacha.filmweb.models.*;
 
+import java.net.URL;
 import java.util.*;
 
 class ApiHandler {
@@ -48,7 +49,15 @@ class ApiHandler {
                 return film.getPolishTitle();
         else
             throw new NoTitleException(film);
-}
+    }
+
+    static Integer getFilmYear(Film film){
+        return film.getYear();
+    }
+
+    static URL getFilmCover(Film film){
+        return film.getPosterURL();
+    }
 
     static int getUserRating(Vote vote){
         return vote.getRate();
